@@ -1,0 +1,12 @@
+@mixin Container__Form() {
+  width: 20vw;
+  height: 50vh;
+  display: flex;
+  padding: 30px;
+  margin: 0 80px;
+  align-items: center;
+  border-radius: 10px;
+  justify-content: center;
+  background-color: white;
+  box-shadow: 5px 10px 35px -15px rgba(0, 0, 0, 0.7);
+}
