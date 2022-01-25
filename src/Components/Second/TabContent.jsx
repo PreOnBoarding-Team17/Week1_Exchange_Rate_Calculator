@@ -21,7 +21,9 @@ function TabContent({ number, exchangeFrom, exchangeTo }) {
   /* API 요청 */
   useEffect(() => {
     async function getAPI() {
-      await API.Get_API()
+      await API.Get_API({
+        currencies: 'USD,CAD,KRW,JPY,HKD,CNY',
+      })
         .then((res) => {
           if (res.data.success) {
             setData({ timestamp: res.data.timestamp, quotes: res.data.quotes });
@@ -36,24 +38,16 @@ function TabContent({ number, exchangeFrom, exchangeTo }) {
     getAPI();
   }, []);
 
-  /*환율 계산*/
+  /* 환율 계산 */
   useEffect(() => {
     if (data) {
-      const [exchangeToRate] = Object.entries(data.quotes).filter((el) => {
-        return el[0] === `USD${exchangeTo}`;
-      });
-
-      const [CurrencyRate] = Object.entries(data.quotes).filter((el) => {
-        return el[0] === `USD${exchangeFrom}`;
-      });
-
       setResult(
         calcExchageRate(
           Number(
             typeof number === 'string' ? number.replace(/,/g, '') : number,
           ),
-          exchangeToRate[1],
-          CurrencyRate[1],
+          data.quotes[`USD${exchangeTo}`],
+          data.quotes[`USD${exchangeFrom}`],
         ),
       );
 
