@@ -1,21 +1,31 @@
 import { API } from 'API';
-import React, { useEffect, useRef, useState } from 'react';
 import 'Components/First/scss/First.scss';
+import React, { useEffect, useRef, useState } from 'react';
 
 export default function First() {
-  // const [exchange, setExchange] = useState('USDKRW');
   const inputRef = useRef(null);
-
+  const [data, setData] = useState([]);
+  const [select, setSelect] = useState('USDKRW');
+  const [exchange, setExchange] = useState(0);
   useEffect(() => {
     async function getAPI() {
-      await API.Get_API().then((response) => console.log(response.data));
+      await API.Get_API({
+        currencies: 'KRW,JPY,PHP',
+        source: 'USD',
+        format: 1,
+      }).then((response) => setData(response.data.quotes));
     }
     getAPI();
   }, []);
-
-  // const handleExchange = (e) => {
-  //   setExchange(e.currentTarget.value);
-  // };
+  const onChangeSelect = () => {
+    const key = Object.keys(data);
+    const answer = key.find((element) => element.includes(select));
+    setExchange(answer && data[answer].toFixed(2));
+  };
+  useEffect(() => {
+    onChangeSelect();
+  }, [onChangeSelect]);
+  console.log(exchange);
 
   return (
     <section className="First__Container">
@@ -25,7 +35,7 @@ export default function First() {
         <label htmlFor="country">수취국가 : </label>
         <select
           id="country"
-          // onChange={handleExchange}
+          onChange={(event) => setSelect(event.target.value)}
           className="ReceiveCountry">
           <option value="USDKRW">한국(KRW)</option>
           <option value="USDJPY">일본(JPY)</option>
