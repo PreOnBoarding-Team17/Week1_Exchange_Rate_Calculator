@@ -1,38 +1,70 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import TabTitle from 'Components/Second/TabTitle';
 import TabContent from 'Components/Second/TabContent';
 import Get_API from 'Utils/Api';
 import 'Components/Second/scss/Second.scss';
 
 export default function Second() {
+  const currencies = ['USD', 'CAD', 'KRW', 'HKD', 'JPY', 'CNY'];
+
+  const [number, setNumber] = useState(1000);
+  const [currency, setCurrency] = useState('USD'); // select 선택
+  const [money, setMoney] = useState('CAD'); // content 선탹
+
   useEffect(async () => {
     console.log(await Get_API());
   }, []);
+
+  const onChangeInput = ({ target: { value } }) => {
+    if (!isNaN(value[value.length - 1]) || value[value.length - 1] === '.') {
+      // 콤마 추가 필요
+      if (parseInt(value) >= 1000) {
+        setNumber(1000);
+      } else {
+        setNumber(value);
+      }
+    }
+  };
+
+  const onChangeSelect = ({ target: { value } }) => {
+    setCurrency(value);
+  };
 
   return (
     <section className="Second__Container">
       <div className="Calc-Container">
         <div className="Calc-Container__Top">
-          <input type="text" className="Calc-Container__Top__input" />
-          <select name="Country" className="Calc-Container__Top__select">
-            <option value="USD">USD</option>
-            <option value="CAD">CAD</option>
-            <option value="KRW">KRW</option>
-            <option value="HKD">HKD</option>
-            <option value="JPY">JPY</option>
-            <option value="CNY">CNY</option>
+          <input
+            type="text"
+            value={number}
+            onChange={onChangeInput}
+            className="Calc-Container__Top__input"
+            onChange={onChangeInput}
+          />
+          <select
+            name="Country"
+            value={currency}
+            onChange={onChangeSelect}
+            className="Calc-Container__Top__select">
+            {currencies.map((currency, idx) => {
+              return (
+                <option value={currency} key={idx}>
+                  {currency}
+                </option>
+              );
+            })}
           </select>
         </div>
         <div className="Calc-Container__Bottom">
           <ul className="Calc-Container__Bottom__item-list">
-            <TabTitle />
-            <TabTitle />
-            <TabTitle />
-            <TabTitle />
-            <TabTitle />
-            <TabTitle />
+            {currencies.map(
+              (el, idx) =>
+                currency !== el && (
+                  <TabTitle name={el} key={idx} setMoney={setMoney} />
+                ),
+            )}
           </ul>
-          <TabContent />
+          <TabContent number={number} money={money} />
         </div>
       </div>
     </section>
