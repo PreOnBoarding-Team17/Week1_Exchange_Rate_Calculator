@@ -10,10 +10,11 @@ export default function Second() {
   const [exchangeFrom, setExchangeFrom] = useState('USD'); // select 선택
   const [exchangeTo, setExchangeTo] = useState('CAD'); // content 선택
 
+  /* input 입력 함수 */
   const onChangeInput = ({ target: { value } }) => {
     if (value.length === 0) setNumber('');
     else if (
-      value[value.length - 1] === '.' ||
+      (value[value.length - 1] === '.' && value.length !== 1) ||
       !isNaN(value[value.length - 1])
     ) {
       if (value.replace(/,/g, '') >= 1000) {
@@ -26,6 +27,7 @@ export default function Second() {
     }
   };
 
+  /* select 선택 함수 */
   const onChangeSelect = ({ target: { value } }) => {
     setExchangeFrom(value);
     if (value === 'USD') setExchangeTo('CAD');

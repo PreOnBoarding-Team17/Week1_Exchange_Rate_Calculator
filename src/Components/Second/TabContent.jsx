@@ -1,84 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import 'Components/Second/scss/TabContent.scss';
-import axios from 'axios';
-import BASE_URL from 'Utils/Api';
+import { API } from 'API';
 
 function TabContent({ number, exchangeFrom, exchangeTo }) {
+  const [data, setData] = useState();
   const [date, setDate] = useState('');
   const [result, setResult] = useState(2000);
 
+  /* 환율 계산 함수 */
   const calcExchageRate = (a, b, c) => {
     let res = (a * b) / c;
-    res = Number(res.toFixed(2)).toLocaleString('en');
-
-    const len = res.length;
-    let precision = res.indexOf('.');
-
-    if (precision === -1) {
-      res += '.00';
-    } else if (len - precision !== 3) {
-      while (precision + 1 < len) {
-        res += '0';
-        precision++;
-      }
-    }
+    res = res.toLocaleString('en', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
 
     return res;
   };
 
+  /* API 요청 */
   useEffect(() => {
-    async function fetchData() {
-      await axios
-        .get(BASE_URL)
+    async function getAPI() {
+      await API.Get_API({
+        currencies: 'USD,CAD,KRW,JPY,HKD,CNY',
+      })
         .then((res) => {
           if (res.data.success) {
-            const data = {
-              timestamp: res.data.timestamp,
-              quotes: res.data.quotes,
-            };
-
-            const [exchangeToRate] = Object.entries(data.quotes).filter(
-              (el) => {
-                return el[0] === `USD${exchangeTo}`;
-              },
-            );
-            const [CurrencyRate] = Object.entries(data.quotes).filter((el) => {
-              return el[0] === `USD${exchangeFrom}`;
-            });
-
-            if (typeof number === 'string') {
-              setResult(
-                calcExchageRate(
-                  Number(number.replace(/,/g, '')),
-                  exchangeToRate[1],
-                  CurrencyRate[1],
-                ),
-              );
-            } else {
-              setResult(
-                calcExchageRate(
-                  Number(number),
-                  exchangeToRate[1],
-                  CurrencyRate[1],
-                ),
-              );
-            }
-
-            const dateData = new Date(data.timestamp * 1000)
-              .toString()
-              .split(' ');
-            setDate(dateData[3] + '-' + dateData[1] + '-' + dateData[2]);
+            setData({ timestamp: res.data.timestamp, quotes: res.data.quotes });
           } else {
-            window.alert('api 요청 실패');
+            window.alert('API 호출 실패');
           }
         })
         .catch((error) => {
           window.alert(error);
         });
     }
+    getAPI();
+  }, []);
 
-    fetchData();
-  }, [exchangeFrom, number, exchangeTo]);
+  /* 환율 계산 */
+  useEffect(() => {
+    if (data) {
+      setResult(
+        calcExchageRate(
+          Number(
+            typeof number === 'string' ? number.replace(/,/g, '') : number,
+          ),
+          data.quotes[`USD${exchangeTo}`],
+          data.quotes[`USD${exchangeFrom}`],
+        ),
+      );
+
+      const dateData = new Date(data.timestamp * 1000).toString().split(' ');
+      setDate(dateData[3] + '-' + dateData[1] + '-' + dateData[2]);
+    }
+  }, [number, exchangeFrom, exchangeTo, data]);
 
   return (
     <div className="Calc-Container__Bottom__result">
