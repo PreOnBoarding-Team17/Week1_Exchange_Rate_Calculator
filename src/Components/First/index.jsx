@@ -14,9 +14,9 @@ export default function First() {
     async function getAPI() {
       await API.Get_API({
         currencies: 'KRW,JPY,PHP',
-        source: 'USD',
-        format: 1,
-      }).then((response) => setData(response.data.quotes));
+      }).then((response) => {
+        setData(response.data.quotes);
+      });
     }
     getAPI();
   }, []);
