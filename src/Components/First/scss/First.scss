@@ -2,19 +2,57 @@
 
 .First__Container {
   @include Container__Form();
-  h1 {
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 12px;
+  .First__Title {
+    font-weight: 800;
+    font-size: 40px;
+    margin-bottom: 30px;
+    color: rgba(0, 0, 0, 0.8);
   }
-
-  .FormStyle {
-    margin-bottom: 24px;
+  .First__Form {
+    position: relative;
+    padding: 10px;
+    .First__Box {
+      display: flex;
+      align-items: center;
+      margin: 0 0 15px 10px;
+      > h3 {
+        width: 80px;
+        font-weight: 600;
+        font-size: 17px;
+        color: #0072e4;
+      }
+      .First__Input {
+        text-align: right;
+        width: 85px;
+        margin: 0 5px 5px 0;
+      }
+    }
+    .LastBox {
+      margin-bottom: 40px;
+    }
+    .First__Submit {
+      margin: 20px auto;
+      width: 100px;
+      height: 50px;
+      border: none;
+      background-color: #0072e4;
+      border-radius: 10px;
+      color: white;
+      font-size: 18px;
+      letter-spacing: 1px;
+      transition: 0.5s;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 5px 5px 20px -8px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      &:hover {
+        transition: 0.5s;
+        background-color: #0059b2;
+      }
+    }
   }
-
-  .SendCountry,
-  .ReceiveCountry,
-  .ExchageRate {
-    margin-bottom: 12px;
+  .First__Result {
+    margin-top: 80px;
   }
 }
