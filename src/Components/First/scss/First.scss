@@ -6,21 +6,29 @@
     font-weight: 800;
     font-size: 40px;
     margin-bottom: 30px;
+    color: rgba(0, 0, 0, 0.8);
   }
   .First__Form {
     position: relative;
-    .First__Country,
-    .First__Exchange_Rate,
-    .First__SendCountry {
-      margin-bottom: 15px;
-    }
-    .First__Send {
-      margin-bottom: 25px;
+    padding: 10px;
+    .First__Box {
       display: flex;
       align-items: center;
-      > * {
-        margin-right: 5px;
+      margin: 0 0 15px 10px;
+      > h3 {
+        width: 80px;
+        font-weight: 600;
+        font-size: 17px;
+        color: #0072e4;
       }
+      .First__Input {
+        text-align: right;
+        width: 85px;
+        margin: 0 5px 5px 0;
+      }
+    }
+    .LastBox {
+      margin-bottom: 40px;
     }
     .First__Submit {
       margin: 20px auto;
@@ -28,9 +36,9 @@
       height: 50px;
       border: none;
       background-color: #0072e4;
-      border-radius: 5px;
+      border-radius: 10px;
       color: white;
-      font-size: 20px;
+      font-size: 18px;
       letter-spacing: 1px;
       transition: 0.5s;
       position: absolute;
