@@ -7,7 +7,7 @@ export default function Second() {
   const currencies = ['USD', 'CAD', 'KRW', 'HKD', 'JPY', 'CNY'];
 
   const [number, setNumber] = useState('1,000');
-  const [currency, setCurrency] = useState('USD'); // select 선택
+  const [exchangeFrom, setExchangeFrom] = useState('USD'); // select 선택
   const [exchangeTo, setExchangeTo] = useState('CAD'); // content 선택
 
   const onChangeInput = ({ target: { value } }) => {
@@ -27,7 +27,7 @@ export default function Second() {
   };
 
   const onChangeSelect = ({ target: { value } }) => {
-    setCurrency(value);
+    setExchangeFrom(value);
     if (value === 'USD') setExchangeTo('CAD');
     else setExchangeTo('USD');
   };
@@ -44,13 +44,13 @@ export default function Second() {
           />
           <select
             name="Country"
-            value={currency}
+            value={exchangeFrom}
             onChange={onChangeSelect}
             className="Calc-Container__Top__select">
-            {currencies.map((currency, idx) => {
+            {currencies.map((exchangeFrom, idx) => {
               return (
-                <option value={currency} key={idx}>
-                  {currency}
+                <option value={exchangeFrom} key={idx}>
+                  {exchangeFrom}
                 </option>
               );
             })}
@@ -60,7 +60,7 @@ export default function Second() {
           <ul className="Calc-Container__Bottom__item-list">
             {currencies.map(
               (el, idx) =>
-                currency !== el && (
+                exchangeFrom !== el && (
                   <TabTitle
                     name={el}
                     key={idx}
@@ -72,7 +72,7 @@ export default function Second() {
           </ul>
           <TabContent
             number={number.length !== 0 ? number : 0}
-            currency={currency}
+            exchangeFrom={exchangeFrom}
             exchangeTo={exchangeTo}
           />
         </div>
