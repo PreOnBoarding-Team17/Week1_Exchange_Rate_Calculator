@@ -9,7 +9,7 @@ export default function First() {
   const [exchange, setExchange] = useState(0);
   const [select, setSelect] = useState('USDKRW');
 
-  // API 불러오기
+  /* API 불러오기 */
   useEffect(() => {
     async function getAPI() {
       await API.Get_API({
@@ -21,10 +21,10 @@ export default function First() {
     getAPI();
   }, []);
 
-  // 환율 변수
+  /* 환율 변수 */
   const nowCurrency = Number(data[select]).toFixed(2);
 
-  // 송금액 계산 함수
+  /* 송금액 계산 함수 */
   const handleSubmit = (e) => {
     e.preventDefault();
     let { value } = inputRef.current;
