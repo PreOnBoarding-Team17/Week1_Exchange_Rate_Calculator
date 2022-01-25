@@ -9,8 +9,8 @@
   &:first-child {
     border-style: none none solid none;
   }
-}
 
-.selected {
-  border-bottom: none;
+  &.Active {
+    border-bottom: none;
+  }
 }

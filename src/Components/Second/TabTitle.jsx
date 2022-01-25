@@ -1,18 +1,15 @@
 import React from 'react';
 import 'Components/Second/scss/TabTitle.scss';
 
-function TabTitle({ name, money, setMoney }) {
-  // let itemClassName = "Calc-Container__Bottom__Country-item";
-  // if (money === name) itemClassName += " selected";
-
+function TabTitle({ name, exchangeTo, setExchangeTo }) {
   const onClickList = () => {
-    setMoney(name);
+    setExchangeTo(name);
   };
 
   return (
     <li
       className={
-        name === money
+        name === exchangeTo
           ? 'Calc-Container__Bottom__Country-item Active'
           : 'Calc-Container__Bottom__Country-item'
       }
