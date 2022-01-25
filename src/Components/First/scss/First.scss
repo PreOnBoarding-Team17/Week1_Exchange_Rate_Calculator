@@ -2,19 +2,49 @@
 
 .First__Container {
   @include Container__Form();
-  h1 {
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 12px;
+  .First__Title {
+    font-weight: 800;
+    font-size: 40px;
+    margin-bottom: 30px;
   }
-
-  .FormStyle {
-    margin-bottom: 24px;
+  .First__Form {
+    position: relative;
+    .First__Country,
+    .First__Exchange_Rate,
+    .First__SendCountry {
+      margin-bottom: 15px;
+    }
+    .First__Send {
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      > * {
+        margin-right: 5px;
+      }
+    }
+    .First__Submit {
+      margin: 20px auto;
+      width: 100px;
+      height: 50px;
+      border: none;
+      background-color: #0072e4;
+      border-radius: 5px;
+      color: white;
+      font-size: 20px;
+      letter-spacing: 1px;
+      transition: 0.5s;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 5px 5px 20px -8px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      &:hover {
+        transition: 0.5s;
+        background-color: #0059b2;
+      }
+    }
   }
-
-  .SendCountry,
-  .ReceiveCountry,
-  .ExchageRate {
-    margin-bottom: 12px;
+  .First__Result {
+    margin-top: 80px;
   }
 }
