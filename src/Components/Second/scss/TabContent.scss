@@ -1,0 +1,14 @@
+.Calc-Container__Bottom__result {
+  height: 25vh;
+  padding: 2.5vh;
+  box-sizing: border-box;
+
+  .Calc-Container__Bottom__result__title {
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 1.5vh;
+  }
+  .Calc-Container__Bottom__result__date {
+    font-size: 14px;
+  }
+}

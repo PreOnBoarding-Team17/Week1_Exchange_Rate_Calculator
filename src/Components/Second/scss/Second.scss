@@ -3,3 +3,34 @@
 .Second__Container {
   @include Container__Form();
 }
+.Calc-Container {
+  border: 8px solid black;
+  padding: 2.5vh;
+}
+
+.Calc-Container__Top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Calc-Container__Top__input {
+  width: 45%;
+  border: 3px solid black;
+  padding: 5px;
+  text-align: center;
+}
+
+.Calc-Container__Top__select {
+  width: 45%;
+  border: 3px solid black;
+  text-align: center;
+}
+
+.Calc-Container__Bottom {
+  border: 3px solid black;
+  margin-top: 2.5vh;
+}
+
+.Calc-Container__Bottom__item-list {
+  display: flex;
+}

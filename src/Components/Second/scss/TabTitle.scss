@@ -1,0 +1,12 @@
+.Calc-Container__Bottom__Country-item {
+  border-bottom: 3px solid black;
+  border-left: 3px solid black;
+  text-align: center;
+  //   padding: 1%;
+  width: 100%;
+  padding: 3px 0;
+
+  &:first-child {
+    border-style: none none solid none;
+  }
+}
