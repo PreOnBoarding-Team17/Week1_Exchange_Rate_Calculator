@@ -1,9 +1,10 @@
 @mixin Container__Form() {
-  width: 20vw;
-  height: 50vh;
+  width: 300px;
+  height: 400px;
   display: flex;
+  flex-direction: column;
   padding: 30px;
-  margin: 0 80px;
+  margin: 0 50px;
   align-items: center;
   border-radius: 10px;
   justify-content: center;
